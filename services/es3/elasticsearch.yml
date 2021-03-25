@@ -1,0 +1,15 @@
+cluster.name: "escluster"
+network.host: 0.0.0.0
+
+node.name: es-node3
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+# discovery.zen.minimum_master_nodes: 1
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+node.master: true
+node.data: true
+
+discovery.seed_hosts: ["172.19.0.11","172.19.0.12","172.19.0.13"]
+cluster.initial_master_nodes: ["es-node1"]

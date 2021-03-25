@@ -1,0 +1,71 @@
+version: "3"
+services:
+  es1:
+    build:
+     context: ./services/es1
+     args:
+       ELASTICSEARCH_VERSION: ${ELASTICSEARCH_VERSION}
+       ELASTICSEARCH_PLUGINS: ${ELASTICSEARCH_PLUGINS}
+    container_name: es1
+    environment:
+     - TZ=$TZ
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+     - ${DATA_DIR}/esdata1:/usr/share/elasticsearch/data
+     - ${ELASTICSEARCH_CONF_FILE1}:/usr/share/elasticsearch/config/elasticsearch.yml
+    hostname: es1
+    restart: always
+    ports:
+     - "9201:9200"
+    networks:
+      default:
+        ipv4_address: 172.19.0.11
+
+  es2:
+    build:
+     context: ./services/es2
+     args:
+       ELASTICSEARCH_VERSION: ${ELASTICSEARCH_VERSION}
+       ELASTICSEARCH_PLUGINS: ${ELASTICSEARCH_PLUGINS}
+    container_name: es2
+    environment:
+     - TZ=$TZ
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+     - ${DATA_DIR}/esdata2:/usr/share/elasticsearch/data
+     - ${ELASTICSEARCH_CONF_FILE2}:/usr/share/elasticsearch/config/elasticsearch.yml
+    hostname: es2
+    restart: always
+    ports:
+     - "9202:9200"
+    networks:
+      default:
+        ipv4_address: 172.19.0.12
+
+  es3:
+    build:
+     context: ./services/es3
+     args:
+       ELASTICSEARCH_VERSION: ${ELASTICSEARCH_VERSION}
+       ELASTICSEARCH_PLUGINS: ${ELASTICSEARCH_PLUGINS}
+    container_name: es3
+    environment:
+     - TZ=$TZ
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+     - ${DATA_DIR}/esdata3:/usr/share/elasticsearch/data
+     - ${ELASTICSEARCH_CONF_FILE3}:/usr/share/elasticsearch/config/elasticsearch.yml
+    hostname: es3
+    restart: always
+    ports:
+     - "9203:9200"
+    networks:
+      default:
+        ipv4_address: 172.19.0.13
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/16
